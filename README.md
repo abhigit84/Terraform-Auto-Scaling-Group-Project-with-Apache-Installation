@@ -1,20 +1,35 @@
-Search the AMI ID in the AWS and add it in the variables.tf
-PUBLIC_KEY_PATH ADD FULL PATH IN VARIABLES.TF-> 
--> command to generate the pub file ->    ssh-keygen -f oregon-region-key-pair
+
+Point to note:-
+Install terraform,awcli,aws configure by iam user or role update in ec2.
+i did this project without a public key also.
+ami id u can search in region under public ami ids filter.
 
 
-1. Install terraform - https://www.terraform.io/downloads 
-2. Install Python if not already done  https://www.python.org/downloads/
-3. Install aws cli - https://docs.aws.amazon.com/cli/v1/userguide/install-macos.html 
-4. Create access key for terraform https://aws.amazon.com/console/ 
-5. Use aws configure to configure the access keys  [ aws configure command ]
-6. Create a S3 bucket and add the name in config.tf
-7. Define variables.tf and config.tf files.
-8. Create Key pair ->    ssh-keygen -f oregon-region-key-pair 
-9. Run - terraform init
-10. terraform plan -out "file.plan"
-11. terraform apply 
-12. terraform destroy
-13. Define other necessary files. 
+Purpose of this Project:-
 
+To create asg with vpc,subnet,route table,ig,route table association and install apache webserver onto ec2 created .
+
+
+ssh-keygen is command to create keys 
+and id_rsa.pub got created and the path i used below in variables.tf file:-
+
+
+variables.tf code:-
+
+variable "AWS_REGION" {
+    default = "us-west-2"
+}
+
+variable "AMI" {
+    type = map(string)
+
+    default = {
+        us-west-2 = "ami-0d593311db5abb72b"
+        us-east-1 = "ami-0c2a1acae6667e438"
+    }
+}
+
+variable "PUBLIC_KEY_PATH" {
+    default =  "/home/ubuntu/.ssh/id_rsa.pub"
+}
 
